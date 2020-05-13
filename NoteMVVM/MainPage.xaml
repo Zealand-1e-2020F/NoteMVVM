@@ -1,0 +1,217 @@
+﻿<Page
+    x:Class="NoteMVVM.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:NoteMVVM"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <DataTemplate x:Key="NoteDataTemplate">
+            <Grid>
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                            Margin="0,0,10,3"
+                            FontFamily="Rockwell"
+                            FontSize="20"
+                            FontWeight="Bold"
+                            Text="{Binding Nr}" />
+                        <TextBlock
+                            FontFamily="Rockwell"
+                            FontSize="20"
+                            FontWeight="Bold"
+                            Text="{Binding Emne}" />
+                    </StackPanel>
+
+                    <TextBlock
+                        FontFamily="Segoe UI Historic"
+                        FontSize="20"
+                        Text="{Binding Tekst}" />
+                    <TextBlock
+                        Margin="0,0,0,15"
+                        FontFamily="Segoe UI Historic"
+                        FontSize="20"
+                        Text="{Binding Dato}" />
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
+    <Page.DataContext>
+        <local:NoteViewModel />
+    </Page.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="8*" />
+            <RowDefinition Height="2*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4*" />
+            <ColumnDefinition Width="6*" />
+        </Grid.ColumnDefinitions>
+        <Border
+            Grid.Row="0"
+            Grid.ColumnSpan="2"
+            Background="Aquamarine" />
+        <Border
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            Background="BlanchedAlmond" />
+        <Border
+            Grid.Row="2"
+            Grid.ColumnSpan="2"
+            Background="Aquamarine" />
+        <Viewbox
+            Grid.Row="0"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Stretch="Uniform">
+            <TextBlock
+                Padding="10"
+                FontFamily="Broadway"
+                FontStyle="Italic"
+                FontWeight="Bold"
+                Text="Note Samling" />
+        </Viewbox>
+        <StackPanel
+            Grid.Row="1"
+            Grid.Column="0"
+            Margin="40">
+            <Viewbox
+                MaxHeight="100"
+                HorizontalAlignment="Left"
+                Stretch="Uniform">
+                <TextBlock
+                    Padding="10"
+                    HorizontalAlignment="Left"
+                    FontFamily="Broadway"
+                    FontStyle="Italic"
+                    Text="Noter:" />
+            </Viewbox>
+            <ListView ItemTemplate="{StaticResource NoteDataTemplate}" ItemsSource="{Binding Notes}" />
+        </StackPanel>
+        <StackPanel
+            Grid.Row="1"
+            Grid.Column="1"
+            Margin="0,0,75,0">
+            <Viewbox
+                MaxHeight="100"
+                HorizontalAlignment="Left"
+                Stretch="Uniform">
+                <TextBlock
+                    Padding="10"
+                    HorizontalAlignment="Left"
+                    FontFamily="Broadway"
+                    FontStyle="Italic"
+                    Text="Note:" />
+            </Viewbox>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="2*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="9*" />
+                </Grid.ColumnDefinitions>
+                <Viewbox
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    MaxHeight="100"
+                    HorizontalAlignment="Left"
+                    Stretch="Uniform">
+                    <TextBlock
+                        Padding="15"
+                        HorizontalAlignment="Left"
+                        FontFamily="Broadway"
+                        FontStyle="Italic"
+                        Text="Nr:" />
+                </Viewbox>
+                <TextBox
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Margin="0,10,0,10"
+                    Padding="10"
+                    FontFamily="Segoe UI Historic"
+                    FontSize="20"
+                    Text="{Binding Nr, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <Viewbox
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    MaxHeight="100"
+                    HorizontalAlignment="Left"
+                    Stretch="Uniform">
+                    <TextBlock
+                        Padding="15"
+                        HorizontalAlignment="Left"
+                        FontFamily="Broadway"
+                        FontStyle="Italic"
+                        Text="Tekst:" />
+                </Viewbox>
+                <TextBox
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="0,10,0,10"
+                    Padding="10"
+                    FontFamily="Segoe UI Historic"
+                    FontSize="20"
+                    Text="{Binding Tekst, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <Viewbox
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    MaxHeight="100"
+                    HorizontalAlignment="Left"
+                    Stretch="Uniform">
+                    <TextBlock
+                        Padding="15"
+                        HorizontalAlignment="Left"
+                        FontFamily="Broadway"
+                        FontStyle="Italic"
+                        Text="Emne:" />
+                </Viewbox>
+                <TextBox
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Margin="0,10,0,10"
+                    Padding="10"
+                    FontFamily="Segoe UI Historic"
+                    FontSize="20"
+                    Text="{Binding Emne, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+            </Grid>
+            <StackPanel
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="40"
+                Orientation="Horizontal">
+                <Button
+                    Margin="0,40,0,0"
+                    Padding="10"
+                    Command="{Binding AddCommand}"
+                    Content="Opret Note"
+                    FontFamily="Broadway"
+                    FontSize="30"
+                    FontStyle="Italic" />
+                <Button
+                    Margin="50,40,0,0"
+                    Padding="10"
+                    Command="{Binding RemoveCommand}"
+                    Content="Slet Note"
+                    FontFamily="Broadway"
+                    FontSize="30"
+                    FontStyle="Italic" />
+                <Button
+                    Margin="50,40,0,0"
+                    Padding="10"
+                    Command="{Binding SaveCommand}"
+                    Content="Gem Noter"
+                    FontFamily="Broadway"
+                    FontSize="30"
+                    FontStyle="Italic" />
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>
