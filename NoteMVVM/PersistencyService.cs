@@ -15,10 +15,10 @@ namespace NoteMVVM
     {
         private static string jsonFileName = "Notes.json";
 
-        public static async void SaveNotesAsJsonAsync(ObservableCollection<NoteModel> notes)
+        public static async Task SaveNotesAsJsonAsync(ObservableCollection<NoteModel> notes)
         {
             string notesJsonString = JsonConvert.SerializeObject(notes);
-            SerializeNotesFileAsync(notesJsonString, jsonFileName);
+            await SerializeNotesFileAsync(notesJsonString, jsonFileName);
         }
 
         public static async Task<List<NoteModel>> LoadNotesFromJsonAsync()
@@ -31,7 +31,7 @@ namespace NoteMVVM
 
 
 
-        private static async void SerializeNotesFileAsync(string notesJsonString, string fileName)
+        private static async Task SerializeNotesFileAsync(string notesJsonString, string fileName)
         {
             StorageFile localFile = await ApplicationData.Current.LocalFolder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
             await FileIO.WriteTextAsync(localFile, notesJsonString);

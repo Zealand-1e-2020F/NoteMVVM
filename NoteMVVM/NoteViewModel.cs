@@ -80,9 +80,9 @@ namespace NoteMVVM
             }
         }
 
-        public void Save()
+        public async Task Save()
         {
-            PersistencyService.SaveNotesAsJsonAsync(Notes);
+           await PersistencyService.SaveNotesAsJsonAsync(Notes);
         }
 
         #region PropertyChangeSupport
